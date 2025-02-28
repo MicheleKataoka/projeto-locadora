@@ -12,38 +12,11 @@ export class UsuariosArmazenados{
     get Usuarios(){
         return this.#usuarios;
     }
-
-    validarUsuario(dadosUsuario){
-        var validacoes: string[]=[];
-        if(!(dadosUsuario.id != null)){
-            validacoes.push("Id não pode ser nulo")
-        }
-        
-    
-        if(!(dadosUsuario.nome != null)){
-            validacoes.push("Nome não pode ser nulo")
-        }
-        if(!(dadosUsuario.idade != null)){ 
-            validacoes.push("Idade não pode ser nulo")
-        }
-        if(!(dadosUsuario.cidade != null)){
-            validacoes.push("Cidade não pode ser nulo")
-        }
-
-        if(!(dadosUsuario.email != null)){
-            validacoes.push("Email não pode ser nulo")
-        }
-        if(!(dadosUsuario.telefone != null)){
-            validacoes.push("Telefone não pode ser nulo")
-        }
-        if(!(dadosUsuario.senha != null)){
-            validacoes.push("Senha não pode ser nulo")
-        }
-
-        return validacoes;
-
-
+    validaEmail(email: string): Promise <boolean>{
+        const possivelUsuario = this.#usuarios.find(
+            usuario => usuario.email === email
+        );
+        return (possivelUsuario !== undefined);
     }
-
-
+   
 }

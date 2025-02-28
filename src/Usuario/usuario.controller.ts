@@ -1,9 +1,34 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
+import { UsuarioEntity } from "./usuario.entity";
+import { UsuariosArmazenados } from "./usuario.dm";
+import { criaUsuarioDTO } from "./dto/usuario.dto";
 
+import { v4 as uuid } from "uuid";
+import { ListaUsuarioDTO } from "./dto/consulta.dto";
 @Controller('/usuarios')
 export class UsuarioController{
+    constructor(private cIUsuariosArmazenados: UsuariosArmazenados){
+
+    }
+    
+        
     @Post()
-    async criaUsuario(@Body() dadosUsuario){
+    async criaUsuario(@Body() dadosUsuario: criaUsuarioDTO ){                                                                                                                                                                                                                                                                                           
+        // var validacoes = this.cIUsuariosArmazenados.validarUsuario(dadosUsuario);
+
+        // if(validacoes.length > 0){
+        //     return {
+        //         status: 'Erro',
+        //         validacoes: validacoes
+        //     }
+        // }
+        var novoUsuario = new UsuarioEntity(uuid(),dadosUsuario.nome, dadosUsuario.idade, 
+                                            dadosUsuario.cidade, dadosUsuario.email, dadosUsuario.telefone, 
+                                            dadosUsuario.senha);
+        this.cIUsuariosArmazenados.AdicionarUsuario(novoUsuario);
+
+
+
         var usuario = {
             dadosUsuario : dadosUsuario,
             status: 'Usuario Criado'
@@ -11,5 +36,21 @@ export class UsuarioController{
         return  usuario;
 
     }
+    @Get()
+    async listaUsuarios(){
+        this.cIUsuariosArmazenados.Usuarios;
+
+        const usuariosListados = this.cIUsuariosArmazenados.Usuarios;
+        const listaRetorno = usuariosListados.map(
+            usuario => new ListaUsuarioDTO(
+                usuario.id,
+                usuario.cidade,
+                usuario.email
+            )
+        );
+        return listaRetorno;
+
+    }
+   
 }
   
