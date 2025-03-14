@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 import { ListaFilmeDTO } from "./dto/consulta.dto";
 import { FilmeDTO } from "../Filmes/dto/id.dto";
 
-
+@Controller('/filmes')
 export class FilmesController{
 	constructor( private cIFilmeArmazenador: FilmesArmazenados){
 }
