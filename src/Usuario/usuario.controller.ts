@@ -5,6 +5,7 @@ import { criaUsuarioDTO } from "./dto/usuario.dto";
 
 import { v4 as uuid } from "uuid";
 import { ListaUsuarioDTO } from "./dto/consulta.dto";
+import { ApiBadRequestResponse, ApiResponse } from "@nestjs/swagger";
 @Controller('/usuarios')
 export class UsuarioController{
     constructor(private cIUsuariosArmazenados: UsuariosArmazenados){
@@ -13,7 +14,10 @@ export class UsuarioController{
     
         
     @Post()
-    async criaUsuario(@Body() dadosUsuario: criaUsuarioDTO ){                                                                                                                                                                                                                                                                                           
+    @ApiResponse({status: 200, description: 'retorna sucesso'})   
+    @ApiBadRequestResponse({description: 'retorno de erro'})
+    async criaUsuario(@Body() dadosUsuario: criaUsuarioDTO ){    
+                                                                                                                                                                                                                                                                                        
         // var validacoes = this.cIUsuariosArmazenados.validarUsuario(dadosUsuario);
 
         // if(validacoes.length > 0){

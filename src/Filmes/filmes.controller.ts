@@ -13,7 +13,7 @@ export class FilmesController{
 
 	@Post()
 	async verFilme(@Body() dadosFilme: verFilmesDTO){
-	var novoFilme = new FilmesEntity(uuid(), dadosFilme.id, dadosFilme.nome, dadosFilme.duracao, dadosFilme.sinopse, dadosFilme.ano, dadosFilme.genero );
+	var novoFilme = new FilmesEntity(uuid(), dadosFilme.nome, dadosFilme.duracao, dadosFilme.sinopse, dadosFilme.ano, dadosFilme.genero );
     this.cIFilmeArmazenador.verFilme(novoFilme);
 
     var filme = {

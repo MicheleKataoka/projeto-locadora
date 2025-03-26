@@ -1,11 +1,11 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsEmail, IsInt, IsNotEmpty, IsString, MinLength, isString } from "class-validator";
 import { EmailUnico, EmailUnicoValidator } from "../validacao/email-unico.validator";
 
 export  class criaUsuarioDTO{
     @IsString()
     @IsNotEmpty({message: "Não pode ser vazio" })
-    @ApiProperty({
+    @ApiPropertyOptional({
         example: 'Roberto silva',
         description:   'Esse campo é para conter o nome completo'
     })
